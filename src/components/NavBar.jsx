@@ -1,27 +1,47 @@
 import React from "react";
 import { Menu, Dropdown } from "semantic-ui-react";
+import styled from "styled-components";
+
+const ActiveDropdown = styled(Dropdown)`
+  &.active {
+    font-weight: bold !important;
+  }
+`;
 
 const NavBar = props => {
   const { nav } = props;
 
   const els = nav.traverse((item, i, traverseChildren) => {
-    if (item.type === "link") {
-      if (item.level === 0) {
+    const { id, type, level, href, active } = item;
+
+    if (type === "link") {
+      if (level === 0) {
         return (
-          <Menu.Item name={item.id} href={item.href}>
+          <Menu.Item key={id} name={id} href={href}>
             {item.title}
           </Menu.Item>
         );
       }
 
-      return <Dropdown.Item href={item.href}>{item.title}</Dropdown.Item>;
+      return (
+        <Dropdown.Item key={id} active={active} href={href}>
+          {item.title}
+        </Dropdown.Item>
+      );
     }
 
-    if (item.type === "category") {
+    if (type === "category") {
+      console.log(item);
+
       return (
-        <Dropdown item text={item.title}>
+        <ActiveDropdown
+          item
+          key={id}
+          className={active ? "active" : ""}
+          text={item.title}
+        >
           <Dropdown.Menu>{traverseChildren()}</Dropdown.Menu>
-        </Dropdown>
+        </ActiveDropdown>
       );
     }
 

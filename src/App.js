@@ -11,6 +11,8 @@ const nav = new Nav({}, nav => {
   });
 });
 
+nav.get("Category1.Link1").activate();
+
 function App() {
   return (
     <>
