@@ -6,45 +6,51 @@ import styled from "styled-components";
 const ActiveDropdown = styled(Dropdown)`
   &.active {
     font-weight: bold !important;
+    border-bottom-style: solid !important;
+    border-color: black !important;
   }
 `;
 
-const NavBar = ({ init, ...props }) => {
+const NavBar = ({ init, onChange, ...props }) => {
   const [nav, setActiveNavPath] = useNav(props, init);
 
   useEffect(() => {
-    setActiveNavPath("Category1.Link1");
+    setActiveNavPath("Category1.SubLink1");
   }, []);
 
-  const onClick = (e, item) => {
-    const { path } = item;
-
+  function onItemClick(e, item) {
     e.preventDefault();
 
+    const { path } = item;
+
+    if (onChange && onChange(item) === false) {
+      return;
+    }
+
     setActiveNavPath(path);
-  };
+  }
 
   const els = nav.traverse((item, traverseChildren) => {
-    const { id, title, type, level, href, active = false } = item;
+    const { id, title, type, level, href, active } = item;
 
     if (type === "link") {
+      let Container;
+
       if (level === 0) {
-        return (
-          <Menu.Item key={id} name={id} href={href}>
-            {title}
-          </Menu.Item>
-        );
+        Container = Menu;
+      } else {
+        Container = Dropdown;
       }
 
       return (
-        <Dropdown.Item
+        <Container.Item
           key={id}
           active={active}
           href={href}
-          onClick={e => onClick(e, item)}
+          onClick={e => onItemClick(e, item)}
         >
           {title}
-        </Dropdown.Item>
+        </Container.Item>
       );
     }
 
@@ -64,7 +70,11 @@ const NavBar = ({ init, ...props }) => {
     return null;
   });
 
-  return <Menu pointing>{els}</Menu>;
+  return (
+    <Menu pointing secondary>
+      {els}
+    </Menu>
+  );
 };
 
 export default NavBar;
