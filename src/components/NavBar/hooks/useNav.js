@@ -9,6 +9,7 @@ function useNav(props, init, defaultPath) {
     if (defaultPath) {
       setActiveNavPath(defaultPath);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function setActiveNavPath(path) {

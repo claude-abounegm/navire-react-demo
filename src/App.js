@@ -1,5 +1,7 @@
 import React from "react";
+import { Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar";
+import Page from "./components/Page";
 import "semantic-ui-css/semantic.min.css";
 
 const App = props => {
@@ -13,7 +15,7 @@ const App = props => {
 
           nav.appendCategory({ title: "Category1" }, nav => {
             nav.appendLink({ title: "SubLink1", href: "/sublink1" });
-            // nav.appendDivider();
+            nav.appendDivider();
             nav.appendLink({ title: "SubLink2", href: "/sublink2" });
 
             nav.appendCategory({ title: "SubCategory1" }, nav => {
@@ -25,6 +27,10 @@ const App = props => {
           history.push(item.href);
         }}
       />
+
+      <Switch>
+        <Route path="/" component={Page} />
+      </Switch>
     </>
   );
 };
