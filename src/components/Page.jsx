@@ -1,9 +1,14 @@
 import React from "react";
+import { Card } from "semantic-ui-react";
 
 const Page = props => {
   const { location } = props;
 
-  return <>{location.pathname}</>;
+  return (
+    <Card centered>
+      <Card.Content>{location.pathname}</Card.Content>
+    </Card>
+  );
 };
 
 export default Page;

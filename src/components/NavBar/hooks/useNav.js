@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Nav } from "nav-tree";
+import { Nav } from "navire";
 
 function useNav(props, init, defaultPath) {
   const [nav] = useState(new Nav(props, init));
@@ -9,6 +9,7 @@ function useNav(props, init, defaultPath) {
     if (defaultPath) {
       setActiveNavPath(defaultPath);
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

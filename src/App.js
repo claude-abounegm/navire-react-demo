@@ -5,7 +5,7 @@ import Page from "./components/Page";
 import "semantic-ui-css/semantic.min.css";
 
 const App = props => {
-  const { history } = props;
+  const { history, location } = props;
 
   return (
     <>
@@ -24,6 +24,7 @@ const App = props => {
           });
         }}
         history={history}
+        location={location}
       />
 
       <Switch>

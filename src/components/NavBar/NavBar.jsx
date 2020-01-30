@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { Menu, Dropdown } from "semantic-ui-react";
 import useNav from "./hooks/useNav";
@@ -14,19 +14,28 @@ const ActiveDropdown = styled(Dropdown)`
     `}
 `;
 
-const NavBar = ({ init, onChange, history }) => {
-  const [nav, setActiveNavPath] = useNav({}, init, "Category1.SubLink1");
+const NavBar = ({ init, onChange, history, location }) => {
+  const [nav, setActiveNavPath] = useNav({}, init);
+
+  useEffect(() => {
+    const currentPath = location.pathname;
+    // try to set active navigation element by href
+    const item = nav.getByHref(currentPath);
+
+    if (item && item.path) {
+      setActiveNavPath(item.path);
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.pathname]);
 
   function onItemClick(e, item) {
     e.preventDefault();
-
-    const { path } = item;
 
     if (onChange && onChange(item) === false) {
       return;
     }
 
-    setActiveNavPath(path);
     history.push(item.href);
   }
 
