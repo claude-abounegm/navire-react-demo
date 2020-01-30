@@ -50,7 +50,12 @@ const NavBar = ({ init, onChange, history }) => {
 
     if (type === "category") {
       return (
-        <ActiveDropdown item key={id} active={active} text={title}>
+        <ActiveDropdown
+          item
+          key={id}
+          active={active ? "active" : undefined}
+          text={title}
+        >
           <Dropdown.Menu>{traverseChildren()}</Dropdown.Menu>
         </ActiveDropdown>
       );
