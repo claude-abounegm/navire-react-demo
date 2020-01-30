@@ -2,7 +2,9 @@ import React from "react";
 import NavBar from "./components/NavBar";
 import "semantic-ui-css/semantic.min.css";
 
-function App() {
+const App = props => {
+  const { history } = props;
+
   return (
     <>
       <NavBar
@@ -13,12 +15,18 @@ function App() {
             nav.appendLink({ title: "SubLink1", href: "/sublink1" });
             // nav.appendDivider();
             nav.appendLink({ title: "SubLink2", href: "/sublink2" });
+
+            nav.appendCategory({ title: "SubCategory1" }, nav => {
+              nav.appendLink({ title: "SubSubLink1", href: "/subsublink1" });
+            });
           });
         }}
-        onChange={console.log}
+        onChange={item => {
+          history.push(item.href);
+        }}
       />
     </>
   );
-}
+};
 
 export default App;

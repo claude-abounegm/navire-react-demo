@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Menu, Dropdown } from "semantic-ui-react";
 import useNav from "./hooks/useNav";
 import styled from "styled-components";
@@ -12,6 +12,7 @@ const ActiveDropdown = styled(Dropdown)`
 `;
 
 const NavBar = ({ init, onChange, ...props }) => {
+  console.log(props);
   const [nav, setActiveNavPath] = useNav(props, init, "Category1.SubLink1");
 
   function onItemClick(e, item) {
@@ -30,13 +31,7 @@ const NavBar = ({ init, onChange, ...props }) => {
     const { id, title, type, level, href, active } = item;
 
     if (type === "link") {
-      let Container;
-
-      if (level === 0) {
-        Container = Menu;
-      } else {
-        Container = Dropdown;
-      }
+      const Container = level === 0 ? Menu : Dropdown;
 
       return (
         <Container.Item
