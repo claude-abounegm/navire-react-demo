@@ -1,12 +1,23 @@
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 import { Nav } from "nav-tree";
 
-function useNav(props, init) {
-  const [nav, setNav] = useState(new Nav(props, init));
-  const [activePath, setActivePathState] = useState(null);
+function useNav(props, init, defaultPath) {
+  const [nav] = useState(new Nav(props, init));
+  const [, setActivePathState] = useState(null);
+
+  useEffect(() => {
+    if (defaultPath) {
+      setActiveNavPath(defaultPath);
+    }
+  }, []);
 
   function setActiveNavPath(path) {
-    nav.get(path).activate();
+    const navItem = nav.get(path);
+    if (!navItem) {
+      throw new Error("Invalid navigation path", path);
+    }
+
+    navItem.activate();
     setActivePathState(path);
   }
 

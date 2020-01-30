@@ -12,11 +12,7 @@ const ActiveDropdown = styled(Dropdown)`
 `;
 
 const NavBar = ({ init, onChange, ...props }) => {
-  const [nav, setActiveNavPath] = useNav(props, init);
-
-  useEffect(() => {
-    setActiveNavPath("Category1.SubLink1");
-  }, []);
+  const [nav, setActiveNavPath] = useNav(props, init, "Category1.SubLink1");
 
   function onItemClick(e, item) {
     e.preventDefault();
