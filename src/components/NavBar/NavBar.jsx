@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Menu, Dropdown } from "semantic-ui-react";
+import useNav from "./hooks/useNav";
 import styled from "styled-components";
 
 const ActiveDropdown = styled(Dropdown)`
@@ -8,37 +9,52 @@ const ActiveDropdown = styled(Dropdown)`
   }
 `;
 
-const NavBar = props => {
-  const { nav } = props;
+const NavBar = ({ init, ...props }) => {
+  const [nav, setActiveNavPath] = useNav(props, init);
 
-  const els = nav.traverse((item, i, traverseChildren) => {
-    const { id, type, level, href, active } = item;
+  useEffect(() => {
+    setActiveNavPath("Category1.Link1");
+  }, []);
+
+  const onClick = (e, item) => {
+    const { path } = item;
+
+    e.preventDefault();
+
+    setActiveNavPath(path);
+  };
+
+  const els = nav.traverse((item, traverseChildren) => {
+    const { id, title, type, level, href, active = false } = item;
 
     if (type === "link") {
       if (level === 0) {
         return (
           <Menu.Item key={id} name={id} href={href}>
-            {item.title}
+            {title}
           </Menu.Item>
         );
       }
 
       return (
-        <Dropdown.Item key={id} active={active} href={href}>
-          {item.title}
+        <Dropdown.Item
+          key={id}
+          active={active}
+          href={href}
+          onClick={e => onClick(e, item)}
+        >
+          {title}
         </Dropdown.Item>
       );
     }
 
     if (type === "category") {
-      console.log(item);
-
       return (
         <ActiveDropdown
           item
           key={id}
           className={active ? "active" : ""}
-          text={item.title}
+          text={title}
         >
           <Dropdown.Menu>{traverseChildren()}</Dropdown.Menu>
         </ActiveDropdown>
