@@ -1,18 +1,21 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { Menu, Dropdown } from "semantic-ui-react";
 import useNav from "./hooks/useNav";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const ActiveDropdown = styled(Dropdown)`
-  &.active {
-    font-weight: bold !important;
-    border-bottom-style: solid !important;
-    border-color: black !important;
-  }
+  ${props =>
+    props.active &&
+    css`
+      font-weight: bold !important;
+      border-bottom-style: solid !important;
+      border-color: black !important;
+    `}
 `;
 
-const NavBar = ({ init, onChange, ...props }) => {
-  const [nav, setActiveNavPath] = useNav(props, init, "Category1.SubLink1");
+const NavBar = ({ init, onChange, history }) => {
+  const [nav, setActiveNavPath] = useNav({}, init, "Category1.SubLink1");
 
   function onItemClick(e, item) {
     e.preventDefault();
@@ -24,6 +27,7 @@ const NavBar = ({ init, onChange, ...props }) => {
     }
 
     setActiveNavPath(path);
+    history.push(item.href);
   }
 
   const els = nav.traverse((item, traverseChildren) => {
@@ -46,12 +50,7 @@ const NavBar = ({ init, onChange, ...props }) => {
 
     if (type === "category") {
       return (
-        <ActiveDropdown
-          item
-          key={id}
-          className={active ? "active" : ""}
-          text={title}
-        >
+        <ActiveDropdown item key={id} active={active} text={title}>
           <Dropdown.Menu>{traverseChildren()}</Dropdown.Menu>
         </ActiveDropdown>
       );
@@ -65,6 +64,14 @@ const NavBar = ({ init, onChange, ...props }) => {
       {els}
     </Menu>
   );
+};
+
+NavBar.propTypes = {
+  init: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func
+  })
 };
 
 export default NavBar;

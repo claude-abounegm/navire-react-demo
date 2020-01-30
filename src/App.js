@@ -23,9 +23,7 @@ const App = props => {
             });
           });
         }}
-        onChange={item => {
-          history.push(item.href);
-        }}
+        history={history}
       />
 
       <Switch>
