@@ -1,25 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Nav } from "nav-tree";
+import NavBar from "./components/NavBar";
+
+const nav = new Nav({}, nav => {
+  nav.appendCategory({ title: "Category1" }, nav => {
+    nav.appendLink({ title: "Link1", href: "/link1" });
+    nav.appendDivider();
+    nav.appendLink({ title: "Link2", href: "/link2" });
+  });
+});
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <NavBar nav={nav} />
+    </>
   );
 }
 
