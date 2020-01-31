@@ -1,6 +1,6 @@
-# nav-react
+# navire-react-demo
 
-Example of using [nav-tree](nav-tree) with:
+Example of using [navire](https://github.com/claude-abounegm/navire) with:
 
 - React
 - React Router

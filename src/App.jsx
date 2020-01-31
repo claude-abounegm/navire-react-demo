@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Container } from "semantic-ui-react";
+// eslint-disable-next-line no-unused-vars
+import Nav from "navire";
 
 import NavBar from "./components/NavBar";
 import Page from "./components/Page";
@@ -13,16 +15,22 @@ const App = props => {
 
   const [admin, setAdmin] = useState(false);
 
-  const initNav = (/** @type {Nav<object>()} */ nav) => {
+  const [nav, resetNav] = useNav({}, (/** @type {Nav<object>()} */ nav) => {
     nav.appendLink({ title: "Link1", href: "/link1" });
 
     nav.appendCategory({ title: "Category1" }, nav => {
       nav.appendLink({
         title: "SubLink1",
-        href: "/sublink1",
-        icon: "trophy"
-        // show: () => true
+        href: "/sublink1"
       });
+
+      nav.appendLink({
+        title: "Admin Link",
+        href: "/admin",
+        icon: "trophy",
+        show: () => admin
+      });
+
       nav.appendDivider({ title: "SubCategory" });
       nav.appendLink({
         title: "SubLink2",
@@ -44,9 +52,7 @@ const App = props => {
         nav.appendLink({ title: "Users", href: "/users" });
       });
     }
-  };
-
-  const [nav, resetNav] = useNav({}, initNav);
+  });
 
   useEffect(() => {
     resetNav();
