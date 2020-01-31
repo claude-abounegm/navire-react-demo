@@ -1,11 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import Nav from "navire";
 import { Menu, Dropdown, Icon } from "semantic-ui-react";
 import useNavActivePath from "./hooks/useNavActivePath";
 
-const NavBar = ({ init, history, location }) => {
-  const [nav] = useState(new Nav({}, init));
+const NavBar = ({ nav, init, history, location }) => {
   useNavActivePath({ nav, location });
 
   function handleItemClick(e, item) {
