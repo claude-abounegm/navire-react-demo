@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import Nav from "navire";
 import { Menu, Dropdown, Icon } from "semantic-ui-react";
-import useNav from "./hooks/useNav";
+import useNavActivePath from "./hooks/useNavActivePath";
 
 const NavBar = ({ init, history, location }) => {
-  const [nav] = useNav({ props: {}, init, location });
+  const [nav] = useState(new Nav({}, init));
+  useNavActivePath({ nav, location });
 
   function handleItemClick(e, item) {
     e.preventDefault();
@@ -48,14 +50,14 @@ const NavBar = ({ init, history, location }) => {
 
     if (type === "divider") {
       if (level > 1) {
-        return <Dropdown.Divider />;
+        return <Dropdown.Divider key={id} />;
       }
     }
 
     if (type === "divider-title") {
       if (level > 1) {
         return (
-          <Dropdown.Header>
+          <Dropdown.Header key={id} id={id}>
             {icon && <Icon name={icon} />} {title}
           </Dropdown.Header>
         );

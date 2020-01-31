@@ -1,10 +1,8 @@
 import { useState, useEffect } from "react";
-import Nav from "navire";
 import { getHrefFromLocation } from "../../../utils/url";
 
-function useNav({ props, init, location }) {
-  const [nav] = useState(new Nav(props, init));
-  const [, setActivePathState] = useState(null);
+function useNavActivePath({ nav, location }) {
+  const [activePath, setActivePathState] = useState(null);
 
   // on pathname change update nav active item
   useEffect(() => {
@@ -30,7 +28,7 @@ function useNav({ props, init, location }) {
     setActivePathState(path);
   }
 
-  return [nav, setActiveNavPath];
+  return [activePath, setActiveNavPath];
 }
 
-export default useNav;
+export default useNavActivePath;
