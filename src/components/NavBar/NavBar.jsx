@@ -2,17 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Menu, Dropdown } from "semantic-ui-react";
 import useNav from "./hooks/useNav";
-import styled, { css } from "styled-components";
-
-const ActiveDropdown = styled(Dropdown)`
-  ${props =>
-    props.active &&
-    css`
-      font-weight: bold !important;
-      border-bottom-style: solid !important;
-      border-color: black !important;
-    `}
-`;
 
 const NavBar = ({ init, history, location }) => {
   const [nav] = useNav({ props: {}, init, location });
@@ -26,10 +15,9 @@ const NavBar = ({ init, history, location }) => {
 
   const els = nav.traverse((item, traverseChildren) => {
     const { id, title, type, level, href, active } = item;
+    const Container = level === 1 ? Menu : Dropdown;
 
     if (type === "link") {
-      const Container = level === 0 ? Menu : Dropdown;
-
       return (
         <Container.Item
           key={id}
@@ -45,26 +33,28 @@ const NavBar = ({ init, history, location }) => {
 
     if (type === "category") {
       return (
-        <ActiveDropdown
+        <Dropdown
           item
           key={id}
           id={id}
-          active={active ? "active" : undefined}
+          className={active ? "active" : undefined}
           text={title}
         >
           <Dropdown.Menu>{traverseChildren()}</Dropdown.Menu>
-        </ActiveDropdown>
+        </Dropdown>
       );
+    }
+
+    if (type === "divider") {
+      if (level > 1) {
+        return <Dropdown.Divider />;
+      }
     }
 
     return null;
   });
 
-  return (
-    <Menu pointing secondary>
-      {els}
-    </Menu>
-  );
+  return <Menu>{els}</Menu>;
 };
 
 NavBar.propTypes = {
