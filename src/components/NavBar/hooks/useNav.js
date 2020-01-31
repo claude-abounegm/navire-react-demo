@@ -12,10 +12,10 @@ function useNav({ props, init, location }) {
 
   // on pathname change update nav active item
   useEffect(() => {
-    const currentPath = getHrefFromLocation(location);
+    const href = getHrefFromLocation(location);
 
     // try to set active navigation element by href
-    const item = nav.getByHref(currentPath);
+    const item = nav.find(href);
 
     if (item && item.path) {
       setActiveNavPath(item.path);

@@ -18,7 +18,8 @@ const App = props => {
             nav.appendDivider();
             nav.appendLink({
               title: "SubLink2",
-              href: "/sublink2/?category=4"
+              href: "/sublink2/?category=4",
+              match: /\/sublink2/
             });
 
             nav.appendCategory({ title: "SubCategory1" }, nav => {
