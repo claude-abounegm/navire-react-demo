@@ -21,6 +21,7 @@ const App = props => {
               title: "SubLink1",
               href: "/sublink1",
               icon: "trophy"
+              // show: () => true
             });
             nav.appendDivider({ title: "SubCategory" });
             nav.appendLink({
