@@ -1,6 +1,8 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
 import { Container } from "semantic-ui-react";
+// eslint-disable-next-line no-unused-vars
+import Nav from "navire";
 import NavBar from "./components/NavBar";
 import Page from "./components/Page";
 import "semantic-ui-css/semantic.min.css";
@@ -11,7 +13,7 @@ const App = props => {
   return (
     <Container>
       <NavBar
-        init={nav => {
+        init={(/** @type {Nav<object>()} */ nav) => {
           nav.appendLink({ title: "Link1", href: "/link1" });
 
           nav.appendCategory({ title: "Category1" }, nav => {

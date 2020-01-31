@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Nav } from "navire";
+import Nav from "navire";
 import { getHrefFromLocation } from "../../../utils/url";
 
 function useNav({ props, init, location }) {
