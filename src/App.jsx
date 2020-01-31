@@ -17,8 +17,12 @@ const App = props => {
           nav.appendLink({ title: "Link1", href: "/link1" });
 
           nav.appendCategory({ title: "Category1" }, nav => {
-            nav.appendLink({ title: "SubLink1", href: "/sublink1" });
-            nav.appendDivider("SubCategory");
+            nav.appendLink({
+              title: "SubLink1",
+              href: "/sublink1",
+              icon: "trophy"
+            });
+            nav.appendDivider({ title: "SubCategory" });
             nav.appendLink({
               title: "SubLink2",
               href: "/sublink2/?category=4",
@@ -27,7 +31,10 @@ const App = props => {
             nav.appendDivider();
 
             nav.appendCategory({ title: "Nested" }, nav => {
-              nav.appendLink({ title: "SubSubLink1", href: "/subsublink1" });
+              nav.appendLink({
+                title: "SubSubLink1",
+                href: "/subsublink1"
+              });
             });
           });
         }}

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Menu, Dropdown } from "semantic-ui-react";
+import { Menu, Dropdown, Icon } from "semantic-ui-react";
 import useNav from "./hooks/useNav";
 
 const NavBar = ({ init, history, location }) => {
@@ -14,7 +14,7 @@ const NavBar = ({ init, history, location }) => {
   }
 
   const els = nav.traverse((item, traverseChildren) => {
-    const { id, title, type, level, href, active } = item;
+    const { id, title, type, level, href, active, icon } = item;
     const Container = level === 1 ? Menu : Dropdown;
 
     if (type === "link") {
@@ -26,7 +26,7 @@ const NavBar = ({ init, history, location }) => {
           href={href}
           onClick={e => handleItemClick(e, item)}
         >
-          {title}
+          {icon && <Icon name={icon} />} {title}
         </Container.Item>
       );
     }
@@ -38,6 +38,7 @@ const NavBar = ({ init, history, location }) => {
           key={id}
           id={id}
           className={active ? "active" : undefined}
+          icon={icon}
           text={title}
         >
           <Dropdown.Menu>{traverseChildren()}</Dropdown.Menu>
@@ -52,9 +53,12 @@ const NavBar = ({ init, history, location }) => {
     }
 
     if (type === "divider-title") {
-      console.log(type, level);
       if (level > 1) {
-        return <Dropdown.Header>{title}</Dropdown.Header>;
+        return (
+          <Dropdown.Header>
+            {icon && <Icon name={icon} />} {title}
+          </Dropdown.Header>
+        );
       }
     }
 
