@@ -26,7 +26,7 @@ const App = props => {
             });
             nav.appendDivider();
 
-            nav.appendCategory({ title: "SubCategory1" }, nav => {
+            nav.appendCategory({ title: "Nested" }, nav => {
               nav.appendLink({ title: "SubSubLink1", href: "/subsublink1" });
             });
           });
