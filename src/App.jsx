@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
 import { Container, Button } from "semantic-ui-react";
-// eslint-disable-next-line no-unused-vars
-import Nav from "navire";
 
 import NavBar from "./components/NavBar";
 import Page from "./components/Page";
