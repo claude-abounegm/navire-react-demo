@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Menu, Dropdown } from "semantic-ui-react";
 import useNav from "./hooks/useNav";
@@ -14,28 +14,13 @@ const ActiveDropdown = styled(Dropdown)`
     `}
 `;
 
-const NavBar = ({ init, onChange, history, location }) => {
-  const [nav, setActiveNavPath] = useNav({}, init);
+const NavBar = ({ init, history, location }) => {
+  const [nav] = useNav({ props: {}, init, location });
 
-  useEffect(() => {
-    const currentPath = location.pathname;
-    // try to set active navigation element by href
-    const item = nav.getByHref(currentPath);
-
-    if (item && item.path) {
-      setActiveNavPath(item.path);
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.pathname]);
-
-  function onItemClick(e, item) {
+  function handleItemClick(e, item) {
     e.preventDefault();
 
-    if (onChange && onChange(item) === false) {
-      return;
-    }
-
+    // update history to new href
     history.push(item.href);
   }
 
@@ -48,9 +33,10 @@ const NavBar = ({ init, onChange, history, location }) => {
       return (
         <Container.Item
           key={id}
+          id={id}
           active={active}
           href={href}
-          onClick={e => onItemClick(e, item)}
+          onClick={e => handleItemClick(e, item)}
         >
           {title}
         </Container.Item>
@@ -62,6 +48,7 @@ const NavBar = ({ init, onChange, history, location }) => {
         <ActiveDropdown
           item
           key={id}
+          id={id}
           active={active ? "active" : undefined}
           text={title}
         >
