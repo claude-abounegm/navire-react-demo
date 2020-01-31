@@ -1,6 +1,11 @@
 import { useState } from "react";
 import Nav from "navire";
 
+/**
+ * @template T
+ * @param {T} opts
+ * @param {Nav.InitFn<T>} init
+ */
 function useNav(opts, init) {
   const createNav = () => new Nav(opts, init);
 

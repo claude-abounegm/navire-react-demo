@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Menu, Dropdown, Icon } from "semantic-ui-react";
 import useNavActivePath from "./hooks/useNavActivePath";
 
-const NavBar = ({ nav, init, history, location }) => {
+const NavBar = ({ nav, history, location }) => {
   useNavActivePath({ nav, location });
 
   function handleItemClick(e, item) {
@@ -13,59 +13,60 @@ const NavBar = ({ nav, init, history, location }) => {
     history.push(item.href);
   }
 
-  const els = nav.traverse((item, traverseChildren) => {
-    const { id, title, type, level, href, active, icon } = item;
-    const Container = level === 1 ? Menu : Dropdown;
+  return (
+    <Menu>
+      {nav.traverse((item, traverseChildren) => {
+        const { id, title, type, level, href, active, icon } = item;
 
-    if (type === "link") {
-      return (
-        <Container.Item
-          key={id}
-          id={id}
-          active={active}
-          href={href}
-          onClick={e => handleItemClick(e, item)}
-        >
-          {icon && <Icon name={icon} />} {title}
-        </Container.Item>
-      );
-    }
+        if (type === "link") {
+          const Container = level === 1 ? Menu : Dropdown;
 
-    if (type === "category") {
-      return (
-        <Dropdown
-          item
-          key={id}
-          id={id}
-          className={active ? "active" : undefined}
-          icon={icon}
-          text={title}
-        >
-          <Dropdown.Menu>{traverseChildren()}</Dropdown.Menu>
-        </Dropdown>
-      );
-    }
+          return (
+            <Container.Item
+              key={id}
+              id={id}
+              active={active}
+              href={href}
+              onClick={e => handleItemClick(e, item)}
+            >
+              {icon && <Icon name={icon} />} {title}
+            </Container.Item>
+          );
+        }
 
-    if (type === "divider") {
-      if (level > 1) {
-        return <Dropdown.Divider key={id} />;
-      }
-    }
+        if (type === "category") {
+          return (
+            <Dropdown
+              item
+              key={id}
+              id={id}
+              className={active ? "active" : undefined}
+              icon={icon}
+              text={title}
+            >
+              <Dropdown.Menu>{traverseChildren()}</Dropdown.Menu>
+            </Dropdown>
+          );
+        }
 
-    if (type === "divider-title") {
-      if (level > 1) {
-        return (
-          <Dropdown.Header key={id} id={id}>
-            {icon && <Icon name={icon} />} {title}
-          </Dropdown.Header>
-        );
-      }
-    }
+        if (level > 1) {
+          if (type === "divider") {
+            return <Dropdown.Divider key={id} />;
+          }
 
-    return null;
-  });
+          if (type === "divider-title") {
+            return (
+              <Dropdown.Header key={id} id={id}>
+                {icon && <Icon name={icon} />} {title}
+              </Dropdown.Header>
+            );
+          }
+        }
 
-  return <Menu>{els}</Menu>;
+        return null;
+      })}
+    </Menu>
+  );
 };
 
 NavBar.propTypes = {

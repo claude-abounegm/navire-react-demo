@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Switch, Route } from "react-router-dom";
-import { Container } from "semantic-ui-react";
+import { Container, Button } from "semantic-ui-react";
 // eslint-disable-next-line no-unused-vars
 import Nav from "navire";
 
@@ -15,7 +15,7 @@ const App = props => {
 
   const [admin, setAdmin] = useState(false);
 
-  const [nav, resetNav] = useNav({}, (/** @type {Nav<object>()} */ nav) => {
+  const [nav, resetNav] = useNav({}, nav => {
     nav.appendLink({ title: "Link1", href: "/link1" });
 
     nav.appendCategory({ title: "Category1" }, nav => {
@@ -61,13 +61,16 @@ const App = props => {
 
   function handleClick() {
     setAdmin(!admin);
+    history.push("/");
   }
 
   return (
     <Container>
       <NavBar nav={nav} history={history} location={location} />
 
-      <button onClick={handleClick}>Toggle Admin</button>
+      <Button onClick={handleClick} primary={admin}>
+        Toggle Admin
+      </Button>
 
       <Switch>
         <Route path="/" component={Page} />
