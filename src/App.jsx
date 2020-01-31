@@ -15,42 +15,52 @@ const App = props => {
 
   const [admin, setAdmin] = useState(false);
 
-  const [nav, resetNav] = useNav({}, nav => {
-    nav.appendLink({ title: "Link1", href: "/link1" });
-
-    nav.appendCategory({ title: "Category1" }, nav => {
-      nav.appendLink({
-        title: "SubLink1",
-        href: "/sublink1"
-      });
-
-      nav.appendLink({
-        title: "Admin Link",
-        href: "/admin",
-        icon: "trophy",
-        show: () => admin
-      });
-
-      nav.appendDivider({ title: "SubCategory" });
-      nav.appendLink({
-        title: "SubLink2",
-        href: "/sublink2/?category=4",
-        match: /\/sublink2/
-      });
-      nav.appendDivider();
-
-      nav.appendCategory({ title: "Nested" }, nav => {
-        nav.appendLink({
-          title: "SubSubLink1",
-          href: "/subsublink1"
-        });
-      });
-    });
-
-    nav.appendCategory({ title: "Admin", show: () => admin }, nav => {
-      nav.appendLink({ title: "Users", href: "/users" });
-    });
-  });
+  const [nav, resetNav] = useNav({}, () => [
+    { type: "link", title: "Link1", href: "/link1" },
+    {
+      type: "category",
+      title: "Category1",
+      children: [
+        {
+          type: "link",
+          title: "SubLink1",
+          href: "/sublink1"
+        },
+        {
+          type: "link",
+          title: "Admin Link",
+          href: "/admin",
+          icon: "trophy",
+          show: () => admin
+        },
+        { type: "divider", title: "SubCategory" },
+        {
+          type: "link",
+          title: "SubLink2",
+          href: "/sublink2/?category=4",
+          match: /\/sublink2/
+        },
+        { type: "divider" },
+        {
+          type: "category",
+          title: "Nested",
+          children: [
+            {
+              type: "link",
+              title: "SubSubLink1",
+              href: "/subsublink1"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      type: "category",
+      title: "Admin",
+      show: () => admin,
+      children: [{ type: "link", title: "Users", href: "/users" }]
+    }
+  ]);
 
   useEffect(() => {
     resetNav();
