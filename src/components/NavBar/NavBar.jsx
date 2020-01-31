@@ -51,6 +51,13 @@ const NavBar = ({ init, history, location }) => {
       }
     }
 
+    if (type === "divider-title") {
+      console.log(type, level);
+      if (level > 1) {
+        return <Dropdown.Header>{title}</Dropdown.Header>;
+      }
+    }
+
     return null;
   });
 
