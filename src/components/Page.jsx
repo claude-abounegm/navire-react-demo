@@ -6,7 +6,11 @@ const Page = props => {
 
   return (
     <Card centered>
-      <Card.Content>{JSON.stringify(location)}</Card.Content>
+      <Card.Content>
+        <pre>
+          <code>{JSON.stringify(location)}</code>
+        </pre>
+      </Card.Content>
     </Card>
   );
 };
