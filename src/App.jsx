@@ -47,11 +47,9 @@ const App = props => {
       });
     });
 
-    if (admin) {
-      nav.appendCategory({ title: "Admin" }, nav => {
-        nav.appendLink({ title: "Users", href: "/users" });
-      });
-    }
+    nav.appendCategory({ title: "Admin", show: () => admin }, nav => {
+      nav.appendLink({ title: "Users", href: "/users" });
+    });
   });
 
   useEffect(() => {
