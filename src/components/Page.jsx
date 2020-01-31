@@ -1,17 +1,16 @@
 import React from "react";
-import { Card } from "semantic-ui-react";
+import { Container } from "semantic-ui-react";
+import { getHrefFromLocation } from "./../utils/url";
 
 const Page = props => {
   const { location } = props;
 
   return (
-    <Card centered>
-      <Card.Content>
-        <pre>
-          <code>{JSON.stringify(location)}</code>
-        </pre>
-      </Card.Content>
-    </Card>
+    <Container textAlign="center">
+      <pre>
+        <code>{getHrefFromLocation(location)}</code>
+      </pre>
+    </Container>
   );
 };
 

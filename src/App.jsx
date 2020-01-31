@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
+import { Container } from "semantic-ui-react";
 import NavBar from "./components/NavBar";
 import Page from "./components/Page";
 import "semantic-ui-css/semantic.min.css";
@@ -8,7 +9,7 @@ const App = props => {
   const { history, location } = props;
 
   return (
-    <>
+    <Container>
       <NavBar
         init={nav => {
           nav.appendLink({ title: "Link1", href: "/link1" });
@@ -34,7 +35,7 @@ const App = props => {
       <Switch>
         <Route path="/" component={Page} />
       </Switch>
-    </>
+    </Container>
   );
 };
 
