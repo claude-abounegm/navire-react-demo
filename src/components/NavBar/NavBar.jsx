@@ -19,7 +19,7 @@ const NavBar = ({ nav, history, location }) => {
         const { id, title, type, level, href, active, icon } = item;
 
         if (type === "link") {
-          const Container = level === 1 ? Menu : Dropdown;
+          const Container = level === 0 ? Menu : Dropdown;
 
           return (
             <Container.Item
@@ -49,7 +49,7 @@ const NavBar = ({ nav, history, location }) => {
           );
         }
 
-        if (level > 1) {
+        if (level > 0) {
           if (type === "divider") {
             return <Dropdown.Divider key={id} />;
           }
