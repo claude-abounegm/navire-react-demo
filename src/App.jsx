@@ -13,7 +13,7 @@ const App = props => {
 
   const [admin, setAdmin] = useState(false);
 
-  const [nav, resetNav] = useNav({}, () => [
+  const [nav, resetNav] = useNav({ props: { isAdmin: admin } }, ({ props }) => [
     { type: "link", title: "Link1", href: "/link1" },
     {
       type: "category",
@@ -29,7 +29,7 @@ const App = props => {
           title: "Admin Link",
           href: "/admin",
           icon: "trophy",
-          show: () => admin
+          show: props.isAdmin // this can also be a function
         },
         { type: "divider", title: "SubCategory" },
         {
@@ -55,7 +55,7 @@ const App = props => {
     {
       type: "category",
       title: "Admin",
-      show: () => admin,
+      show: props.isAdmin,
       children: [{ type: "link", title: "Users", href: "/users" }]
     }
   ]);

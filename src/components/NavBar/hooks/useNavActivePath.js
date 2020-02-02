@@ -1,6 +1,12 @@
+// eslint-disable-next-line no-unused-vars
+import Nav from "navire";
 import { useState, useEffect } from "react";
 import { getHrefFromLocation } from "../../../utils/url";
 
+/**
+ *
+ * @param {{ nav: Nav }} param0
+ */
 function useNavActivePath({ nav, location }) {
   const [activePath, setActivePathState] = useState(null);
 
@@ -9,7 +15,7 @@ function useNavActivePath({ nav, location }) {
     const href = getHrefFromLocation(location);
 
     // try to set active navigation element by href
-    const item = nav.find(href);
+    const item = nav.findByHref(href);
 
     if (item) {
       setActiveNavPath(item.path);
