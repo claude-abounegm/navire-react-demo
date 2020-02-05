@@ -6,7 +6,7 @@ import Nav from "navire";
  * @param {{ props?: PropsType }} opts
  * @param {Nav.Init<PropsType>} init
  */
-function useNav(opts, init, deps = []) {
+function useNav({ opts = {}, init }, deps = []) {
   const createNav = () => new Nav(opts, init);
 
   const [nav, setNav] = useState(null);

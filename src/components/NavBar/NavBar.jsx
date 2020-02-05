@@ -6,53 +6,54 @@ import useNavActivePath from "./hooks/useNavActivePath";
 
 const NavBar = ({ user, history, location }) => {
   const [nav] = useNav(
-    {},
-    () => [
-      { type: "link", title: "Link1", href: "/link1" },
-      {
-        type: "category",
-        title: "Category1",
-        children: [
-          {
-            type: "link",
-            title: "SubLink1",
-            href: "/sublink1"
-          },
-          {
-            type: "link",
-            title: "Admin Link",
-            href: "/admin",
-            icon: "trophy",
-            show: user.admin
-          },
-          { type: "divider", title: "SubCategory" },
-          {
-            type: "link",
-            title: "SubLink2",
-            href: "/sublink2/?category=4",
-            match: /\/sublink2/
-          },
-          { type: "divider" },
-          {
-            type: "category",
-            title: "Nested",
-            children: [
-              {
-                type: "link",
-                title: "SubSubLink1",
-                href: "/subsublink1"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        type: "category",
-        title: "Admin",
-        show: user.admin,
-        children: [{ type: "link", title: "Users", href: "/users" }]
-      }
-    ],
+    {
+      init: () => [
+        { type: "link", title: "Link1", href: "/link1" },
+        {
+          type: "category",
+          title: "Category1",
+          children: [
+            {
+              type: "link",
+              title: "SubLink1",
+              href: "/sublink1"
+            },
+            {
+              type: "link",
+              title: "Admin Link",
+              href: "/admin",
+              icon: "trophy",
+              show: user.admin
+            },
+            { type: "divider", title: "SubCategory" },
+            {
+              type: "link",
+              title: "SubLink2",
+              href: "/sublink2/?category=4",
+              match: /\/sublink2/
+            },
+            { type: "divider" },
+            {
+              type: "category",
+              title: "Nested",
+              children: [
+                {
+                  type: "link",
+                  title: "SubSubLink1",
+                  href: "/subsublink1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          type: "category",
+          title: "Admin",
+          show: user.admin,
+          children: [{ type: "link", title: "Users", href: "/users" }]
+        }
+      ]
+    },
     [user.admin]
   );
 
