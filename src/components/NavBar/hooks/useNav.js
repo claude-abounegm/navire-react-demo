@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Nav from "navire";
 
 /**
@@ -6,14 +6,19 @@ import Nav from "navire";
  * @param {{ props?: PropsType }} opts
  * @param {Nav.Init<PropsType>} init
  */
-function useNav(opts, init) {
+function useNav(opts, init, deps = []) {
   const createNav = () => new Nav(opts, init);
 
-  const [nav, setNav] = useState(createNav());
+  const [nav, setNav] = useState(null);
 
   function resetNav() {
     setNav(createNav());
   }
+
+  useEffect(() => {
+    resetNav();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
 
   return [nav, resetNav];
 }
