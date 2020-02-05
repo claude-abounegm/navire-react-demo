@@ -15,12 +15,16 @@ function useNav(opts, init, deps = []) {
     setNav(createNav());
   }
 
+  function append(init) {
+    nav.append(init);
+  }
+
   useEffect(() => {
     resetNav();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
-  return [nav, resetNav];
+  return [nav, resetNav, append];
 }
 
 export default useNav;
