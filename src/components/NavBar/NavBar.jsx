@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Menu, Dropdown, Icon } from "semantic-ui-react";
-import useNav from "./hooks/useNav";
-import useNavActivePath from "./hooks/useNavActivePath";
+import useNavire from "./hooks/useNavire";
+import useNavireActivePath from "./hooks/useNavireActivePath";
 
 const NavBar = ({ user, history, location }) => {
-  const [nav] = useNav(
+  const [navire] = useNavire(
     {
       init: () => [
         { type: "link", title: "Link1", href: "/link1" },
@@ -57,7 +57,7 @@ const NavBar = ({ user, history, location }) => {
     [user.admin]
   );
 
-  useNavActivePath({ nav, location });
+  useNavireActivePath({ navire, location });
 
   function handleItemClick(e, item) {
     e.preventDefault();
@@ -66,13 +66,13 @@ const NavBar = ({ user, history, location }) => {
     history.push(item.href);
   }
 
-  if (!nav) {
+  if (!navire) {
     return null;
   }
 
   return (
     <Menu>
-      {nav.traverse((item, traverseChildren) => {
+      {navire.traverse((item, traverseChildren) => {
         const { id, title, type, level, href, active, icon } = item;
 
         if (type === "link") {

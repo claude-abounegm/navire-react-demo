@@ -1,22 +1,22 @@
 import { useState, useEffect } from "react";
-import Nav from "navire";
+import Navire from "navire";
 
 /**
  * @template PropsType
  * @param {{ props?: PropsType }} opts
  * @param {Nav.Init<PropsType>} init
  */
-function useNav({ opts = {}, init }, deps = []) {
-  const createNav = () => new Nav(opts, init);
+function useNavire({ opts = {}, init }, deps = []) {
+  const createNavire = () => new Navire(init, opts);
 
-  const [nav, setNav] = useState(null);
+  const [navire, setNavire] = useState(null);
 
   function resetNav() {
-    setNav(createNav());
+    setNavire(createNavire());
   }
 
   function append(init) {
-    nav.append(init);
+    navire.append(init);
   }
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function useNav({ opts = {}, init }, deps = []) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 
-  return [nav, resetNav, append];
+  return [navire, resetNav, append];
 }
 
-export default useNav;
+export default useNavire;
